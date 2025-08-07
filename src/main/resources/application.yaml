@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: aidemo
+
+  ai:
+    ollama:
+      init:
+        pull-model-strategy: always
+        chat:
+          additional-models:
+            - llama3.2
