@@ -5,7 +5,10 @@ spring:
   ai:
     ollama:
       init:
-        pull-model-strategy: always
+        pull-model-strategy: when_missing
         chat:
           additional-models:
             - llama3.2
+      chat:
+        options:
+          temperature: 1

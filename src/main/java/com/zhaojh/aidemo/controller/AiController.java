@@ -33,4 +33,12 @@ public class AiController {
         String result = ollamaChatModel.call(new Prompt(userMessage).getContents());
         return result;
     }
+
+    @PostMapping("/ask")
+    public String ask(@RequestBody QuestionDto questionDto) {
+        String message = questionDto.getQuestion() + "Answer this with language : " + questionDto.getLanguage();
+        Message userMessage = new UserMessage(message);
+        String result = ollamaChatModel.call(new Prompt(userMessage).getContents());
+        return result;
+    }
 }
