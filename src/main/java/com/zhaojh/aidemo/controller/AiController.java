@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class AiController {
@@ -26,7 +28,7 @@ public class AiController {
     }
 
     @PostMapping("/analyze")
-    public String analyzeImage(@RequestBody QuestionDto questionDto) {
+    public String analyzeImage(@RequestBody @Valid QuestionDto questionDto) {
         ClassPathResource resource = new ClassPathResource("test.jpeg");
         String message = questionDto.getQuestion() + "Answer this with language : " + questionDto.getLanguage();
         Message userMessage = new UserMessage(message, new Media(MimeTypeUtils.IMAGE_JPEG, resource));
@@ -35,7 +37,7 @@ public class AiController {
     }
 
     @PostMapping("/ask")
-    public String ask(@RequestBody QuestionDto questionDto) {
+    public String ask(@RequestBody @Valid QuestionDto questionDto) {
         String message = questionDto.getQuestion() + "Answer this with language : " + questionDto.getLanguage();
         Message userMessage = new UserMessage(message);
         String result = ollamaChatModel.call(new Prompt(userMessage).getContents());

@@ -1,5 +1,6 @@
 package com.zhaojh.aidemo.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class QuestionDto {
 
+    @NotEmpty(message = "Question cannot be empty")
     String question;
+    @NotEmpty(message = "Language cannot be empty")
     String language;
 }
