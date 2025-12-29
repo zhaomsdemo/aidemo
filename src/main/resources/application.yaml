@@ -8,7 +8,16 @@ spring:
         pull-model-strategy: when_missing
         chat:
           additional-models:
-            - gpt-4-turbo-preview
+            - llama3.2
       chat:
         options:
           temperature: 0.7
+          stream: true
+
+logging:
+  level:
+    org.zalando.logbook: TRACE
+
+logbook:
+  format:
+    style: http

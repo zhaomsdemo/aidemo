@@ -45,7 +45,8 @@ public class AiController {
                         .param("question", questionDto.getQuestion())
                         .param("language", questionDto.getLanguage())
                         .param("rules", questionDto.getRules())
-                        .param("answer", questionDto.getAnswer()))
+                        .param("answer", questionDto.getAnswer())
+                )
                 .call()
                 .content();
         return answer;

@@ -17,6 +17,6 @@ public class QuestionDto {
     String language;
     @NotEmpty(message = "Rules cannot be empty")
     String rules;
-    @NotEmpty(message = "Answer cannot be empty")
+//    @NotEmpty(message = "Answer cannot be empty")
     String answer;
 }
