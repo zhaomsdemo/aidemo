@@ -8,11 +8,12 @@ spring:
         pull-model-strategy: when_missing
         chat:
           additional-models:
-            - llama3.2
+            - gemma2
       chat:
         options:
           temperature: 0.7
           stream: true
+          model: gemma2
 
 logging:
   level:

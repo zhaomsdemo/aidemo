@@ -1,4 +1,0 @@
-Question:{question}
-Language: {language}
-RULES: {rules}
-Answer:{answer}
