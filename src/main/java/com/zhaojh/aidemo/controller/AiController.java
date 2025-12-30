@@ -4,8 +4,10 @@ import com.zhaojh.aidemo.dto.QuestionDto;
 import com.zhaojh.aidemo.vo.AnswerVo;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.ai.chat.client.ResponseEntity;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.Resource;
@@ -20,9 +22,9 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class AiController {
 
-    private final OllamaChatModel ollamaChatModel;
     private ChatClient chatClient;
     private final ChatClient.Builder chatClientBuilder;
 
@@ -51,7 +53,7 @@ public class AiController {
 
     @PostMapping("/ask")
     public AnswerVo ask(@RequestBody @Valid QuestionDto questionDto) {
-        AnswerVo answer = chatClient.prompt()
+        ResponseEntity<ChatResponse, AnswerVo> responseEntity = chatClient.prompt()
                 .system(spec -> spec.text(systemPromptTemplate)
                         .param("question", questionDto.getQuestion())
                 )
@@ -60,8 +62,11 @@ public class AiController {
                         .param("rules", questionDto.getRules())
                 )
                 .call()
-                .entity(AnswerVo.class);
-        return answer;
+                .responseEntity(AnswerVo.class);
+        ChatResponse chatResponse = responseEntity.getResponse();
+        AnswerVo answerVo = responseEntity.getEntity();
+        log.info("Usage : {}", chatResponse.getMetadata().getUsage());
+        return answerVo;
     }
 
     @GetMapping("/songs")
