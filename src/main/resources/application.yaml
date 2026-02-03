@@ -14,6 +14,16 @@ spring:
           temperature: 0.7
           stream: true
           model: gemma2
+    vectorstore:
+      mongodb:
+        initialize-schema: true
+        uri: mongodb://localhost:27017/aidemo
+        database: aidemo
+        collection: vectorstore
+  cloud:
+    function:
+      definition: fileSupplier|documentReader|splitter|titleDeterminer|vectorStoreConsumer
+
 
 logging:
   level:
@@ -22,3 +32,7 @@ logging:
 logbook:
   format:
     style: http
+file:
+  supplier:
+    directory: /path/to/files
+    filename-regex: .*\.txt

@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.4.4'
+    id 'org.springframework.boot' version '3.5.7'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -19,15 +19,24 @@ repositories {
 
 ext {
     set('springAiVersion', "1.1.2")
+    springCloudVersion = "2025.0.1"
+    springFunctionCatalog = "5.1.1"
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
+    implementation 'org.springframework.ai:spring-ai-rag'
     implementation 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     // https://mvnrepository.com/artifact/org.zalando/logbook-spring-boot-starter
     implementation("org.zalando:logbook-spring-boot-starter:3.12.3")
+    implementation 'org.springframework.ai:spring-ai-starter-vector-store-mongodb-atlas'
+    implementation 'org.springframework.ai:spring-ai-tika-document-reader'
+    implementation 'org.springframework.ai:spring-ai-starter-model-chat-memory-repository-mongodb'
+    implementation 'org.springframework.cloud:spring-cloud-function-web'
+    // https://mvnrepository.com/artifact/org.springframework.cloud.fn/spring-file-supplier
+    implementation("org.springframework.cloud.fn:spring-file-supplier:5.1.1")
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -36,6 +45,8 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+        mavenBom "org.springframework.cloud.fn:spring-functions-catalog-bom:$springFunctionCatalog"
     }
 }
 
